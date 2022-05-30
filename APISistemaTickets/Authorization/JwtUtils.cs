@@ -10,8 +10,8 @@ namespace APISistemaTickets.Authorization;
 
 public interface IJwtUtils
 {
-    public string GenerateToken(User user);
-    public int? ValidateToken(string token);
+    public string GenerateJwtToken(User user);
+    public int? ValidateJwtToken(string token);
 }
 
 public class JwtUtils : IJwtUtils
@@ -23,7 +23,7 @@ public class JwtUtils : IJwtUtils
         _appSettings = appSettings.Value;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateJwtToken(User user)
     {
         // generate token that is valid for 7 days
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -38,9 +38,9 @@ public class JwtUtils : IJwtUtils
         return tokenHandler.WriteToken(token);
     }
 
-    public int? ValidateToken(string token)
+    public int? ValidateJwtToken(string token)
     {
-        if (token == null) 
+        if (token == null)
             return null;
 
         var tokenHandler = new JwtSecurityTokenHandler();

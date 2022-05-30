@@ -58,4 +58,4 @@ app.UseMiddleware<JwtMiddleware>();
 
 app.MapControllers();
 
-app.Run();
+app.Run("https://localhost:4000");

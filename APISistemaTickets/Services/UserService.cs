@@ -41,7 +41,7 @@ public class UserService : IUserService
 
         // authentication successful
         var response = _mapper.Map<AuthenticateResponse>(user);
-        response.Token = _jwtUtils.GenerateToken(user);
+        response.Token = _jwtUtils.GenerateJwtToken(user);
         return response;
     }
 

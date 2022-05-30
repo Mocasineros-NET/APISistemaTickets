@@ -8,31 +8,17 @@ using Microsoft.Extensions.Options;
 
 namespace APISistemaTickets.Controllers;
 
+
 [Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UsersController : ControllerBase
 {
     private IUserService _userService;
-    private IMapper _mapper;
-    private readonly AppSettings _appSettings;
 
-    public UsersController(
-        IUserService userService,
-        IMapper mapper,
-        IOptions<AppSettings> appSettings)
+    public UsersController(IUserService userService)
     {
         _userService = userService;
-        _mapper = mapper;
-        _appSettings = appSettings.Value;
-    }
-
-    [AllowAnonymous]
-    [HttpPost("authenticate")]
-    public IActionResult Authenticate(AuthenticateRequest model)
-    {
-        var response = _userService.Authenticate(model);
-        return Ok(response);
     }
 
     [AllowAnonymous]
@@ -40,21 +26,23 @@ public class UsersController : ControllerBase
     public IActionResult Register(RegisterRequest model)
     {
         _userService.Register(model);
-        return Ok(new { message = "Registration successful" });
+        return Ok(new {message = "Registration successful"});
     }
 
+    [AllowAnonymous]
+    [HttpPost("[action]")]
+    public IActionResult Authenticate(AuthenticateRequest model)
+    {
+        var response = _userService.Authenticate(model);
+        return Ok(response);
+    }
+
+    [Authorize(Role.Admin)]
     [HttpGet]
     public IActionResult GetAll()
     {
         var users = _userService.GetAll();
         return Ok(users);
-    }
-
-    [HttpGet("{id}")]
-    public IActionResult GetById(int id)
-    {
-        var user = _userService.GetById(id);
-        return Ok(user);
     }
 
     [HttpPut("{id}")]
@@ -69,5 +57,17 @@ public class UsersController : ControllerBase
     {
         _userService.Delete(id);
         return Ok(new { message = "User deleted successfully" });
+    }
+
+    [HttpGet("{id:int}")]
+    public IActionResult GetById(int id)
+    {
+        // only admins can access other user records
+        var currentUser = (User)HttpContext.Items["User"];
+        if (id != currentUser.Id && currentUser.Role != Role.Admin)
+            return Unauthorized(new { message = "Unauthorized" });
+
+        var user =  _userService.GetById(id);
+        return Ok(user);
     }
 }
