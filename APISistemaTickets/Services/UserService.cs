@@ -9,10 +9,10 @@ public interface IUserService
 {
     AuthenticateResponse Authenticate(AuthenticateRequest model);
     IEnumerable<User> GetAll();
-    User GetById(int id);
+    User GetById(long id);
     void Register(RegisterRequest model);
-    void Update(int id, UpdateRequest model);
-    void Delete(int id);
+    void Update(long id, UpdateRequest model);
+    void Delete(long id);
 }
 
 public class UserService : IUserService
@@ -50,7 +50,7 @@ public class UserService : IUserService
         return _context.Users;
     }
 
-    public User GetById(int id)
+    public User GetById(long id)
     {
         return GetUser(id);
     }
@@ -72,7 +72,7 @@ public class UserService : IUserService
         _context.SaveChanges();
     }
 
-    public void Update(int id, UpdateRequest model)
+    public void Update(long id, UpdateRequest model)
     {
         var user = GetUser(id);
 
@@ -90,7 +90,7 @@ public class UserService : IUserService
         _context.SaveChanges();
     }
 
-    public void Delete(int id)
+    public void Delete(long id)
     {
         var user = GetUser(id);
         _context.Users.Remove(user);
@@ -99,7 +99,7 @@ public class UserService : IUserService
 
     // helper methods
 
-    private User GetUser(int id)
+    private User GetUser(long id)
     {
         var user = _context.Users.Find(id);
         if (user == null) throw new KeyNotFoundException("User not found");

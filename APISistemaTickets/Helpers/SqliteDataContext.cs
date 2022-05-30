@@ -11,6 +11,8 @@ public class SqliteDataContext : DataContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         // connect to sqlite database
-        options.UseSqlite(Configuration.GetConnectionString("WebApiDatabase"));
+        options
+            .UseLazyLoadingProxies()
+            .UseSqlite(Configuration.GetConnectionString("WebApiDatabase"));
     }
 }

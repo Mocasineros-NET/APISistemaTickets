@@ -8,7 +8,7 @@ public class Ticket
     
     public long UserId { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual User? User { get; set; }
     
     public long? EngineerId { get; set; }
     
@@ -26,7 +26,7 @@ public class Ticket
     
     public bool IsClosed => ClosedAt == null;
     
-    public virtual ICollection<Tag> Tags { get; set; }
+    public virtual ICollection<Tag>? Tags { get; set; }
     
-    public virtual ICollection<Comment> Comments { get; set; }
+    public virtual ICollection<Comment>? Comments { get; set; }
 }

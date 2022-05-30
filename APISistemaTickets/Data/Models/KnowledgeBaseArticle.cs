@@ -11,10 +11,10 @@ public class KnowledgeBaseArticle
     
     public string Content { get; set; }
     
-    public virtual ICollection<Tag> Tags { get; set; }
+    public virtual ICollection<Tag>? Tags { get; set; }
     
     public long UserId { get; set; }
     
     [ForeignKey("UserId")]
-    public virtual User Author { get; set; }
+    public virtual User? Author { get; set; }
 }

@@ -8,7 +8,7 @@ public class Tag
 
     public long KnowledgeBaseArticleId { get; set; }
     
-    public virtual KnowledgeBaseArticle KnowledgeBaseArticle { get; set; }
+    public virtual KnowledgeBaseArticle? KnowledgeBaseArticle { get; set; }
     
-    public virtual ICollection<Ticket> Tickets { get; set; }
+    public virtual ICollection<Ticket>? Tickets { get; set; }
 }
