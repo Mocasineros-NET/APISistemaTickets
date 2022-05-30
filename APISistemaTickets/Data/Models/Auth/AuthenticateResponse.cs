@@ -18,4 +18,9 @@ public class AuthenticateResponse
         Role = user.Role;
         Token = token;
     }
+
+    public AuthenticateResponse()
+    {
+        
+    }
 }

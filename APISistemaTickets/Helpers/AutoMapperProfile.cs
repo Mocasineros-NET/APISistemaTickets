@@ -11,7 +11,8 @@ public class AutoMapperProfile : Profile
         CreateMap<User, AuthenticateResponse>();
 
         // RegisterRequest -> User
-        CreateMap<RegisterRequest, User>();
+        CreateMap<RegisterRequest, User>()
+            .ForMember(m => m.Role, o => o.MapFrom(_ => Role.User));
 
         // UpdateRequest -> User
         CreateMap<UpdateRequest, User>()
