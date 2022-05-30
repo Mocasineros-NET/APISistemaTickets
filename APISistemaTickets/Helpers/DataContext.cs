@@ -1,3 +1,4 @@
+using APISistemaTickets.Data.Models;
 using APISistemaTickets.Data.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,4 +20,8 @@ public class DataContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
 }
