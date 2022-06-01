@@ -1,4 +1,5 @@
 using APISistemaTickets.Data.Models;
+using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 

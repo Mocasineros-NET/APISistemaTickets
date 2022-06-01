@@ -1,6 +1,6 @@
 using APISistemaTickets.Data.Models.Auth;
 
-namespace APISistemaTickets.Data.Models;
+namespace APISistemaTickets.Data.Models.App;
 
 public class Ticket
 {

@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using APISistemaTickets.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using APISistemaTickets.Data.Models;
+using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace APISistemaTickets.Controllers
+namespace APISistemaTickets.Controllers.App
 {
     [Authorize]
     [Route("api/[controller]")]

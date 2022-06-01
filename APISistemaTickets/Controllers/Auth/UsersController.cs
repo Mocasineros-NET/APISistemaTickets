@@ -1,12 +1,9 @@
 ﻿using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Models.Auth;
-using APISistemaTickets.Helpers;
 using APISistemaTickets.Services;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
-namespace APISistemaTickets.Controllers;
+namespace APISistemaTickets.Controllers.Auth;
 
 
 [Authorize]
