@@ -1,6 +1,6 @@
 ﻿using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Models.Auth;
-using APISistemaTickets.Services;
+using APISistemaTickets.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APISistemaTickets.Controllers.Auth;

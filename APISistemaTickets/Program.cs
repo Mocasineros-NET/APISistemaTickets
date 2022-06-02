@@ -1,6 +1,6 @@
 using APISistemaTickets.Authorization;
+using APISistemaTickets.Data.Services;
 using APISistemaTickets.Helpers;
-using APISistemaTickets.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

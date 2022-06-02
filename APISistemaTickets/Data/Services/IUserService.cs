@@ -1,6 +1,6 @@
 using APISistemaTickets.Data.Models.Auth;
 
-namespace APISistemaTickets.Services;
+namespace APISistemaTickets.Data.Services;
 
 public interface IUserService
 {

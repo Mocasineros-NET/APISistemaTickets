@@ -3,7 +3,7 @@ using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Helpers;
 using AutoMapper;
 
-namespace APISistemaTickets.Services;
+namespace APISistemaTickets.Data.Services;
 
 public class UserService : IUserService
 {
