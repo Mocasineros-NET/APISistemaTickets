@@ -29,7 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Models\DTO" />
       <Folder Include="Migrations" />
       <Folder Include="Services" />
     </ItemGroup>
