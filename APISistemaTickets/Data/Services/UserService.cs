@@ -45,6 +45,11 @@ public class UserService : IUserService
         return GetUser(id);
     }
 
+    public IEnumerable<User> GetByRole(Role role)
+    {
+        return _context.Users.Where(u => u.Role == role);
+    }
+
     public void Register(RegisterRequest model)
     {
         // validate
