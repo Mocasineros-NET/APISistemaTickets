@@ -1,7 +1,6 @@
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace APISistemaTickets.Data.Services;
 
@@ -48,7 +47,7 @@ class TicketService : ITicketService
 
     public Ticket Update(Ticket ticket)
     {
-        _context.Entry(ticket).State = EntityState.Modified;
+        _context.Tickets.Update(ticket);
         _context.SaveChanges();
         return ticket;
     }
