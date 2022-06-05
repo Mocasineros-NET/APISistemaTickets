@@ -4,9 +4,9 @@ namespace APISistemaTickets.Data.Services;
 
 public interface ITagService
 {
-    IEnumerable<Tag> GetTags();
-    Tag GetById(int id);
-    Tag Create(Tag tag);
-    Tag Update(Tag tag);
-    void Delete(int id);
+    Task<IEnumerable<Tag>> GetTags();
+    Task<Tag> GetById(int id);
+    Task<Tag> Create(Tag tag);
+    Task<Tag> Update(Tag tag);
+    Task Delete(int id);
 }

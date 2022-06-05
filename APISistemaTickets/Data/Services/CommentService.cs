@@ -1,5 +1,6 @@
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace APISistemaTickets.Data.Services;
 
@@ -12,14 +13,14 @@ class CommentService : ICommentService
         _context = context;
     }
     
-    public IEnumerable<Comment> GetAll()
+    public async Task<IEnumerable<Comment>> GetAll()
     {
-        return _context.Comments;
+        return await _context.Comments.ToListAsync();
     }
 
-    public Comment GetById(int id)
+    public async Task<Comment> GetById(int id)
     {
-        var comment = _context.Comments.Find(id);
+        var comment = await _context.Comments.FindAsync(id);
         if(comment == null)
         {
             throw new KeyNotFoundException("Comment not found");
@@ -27,28 +28,28 @@ class CommentService : ICommentService
         return comment;
     }
 
-    public Comment Create(Comment comment)
+    public async Task<Comment> Create(Comment comment)
     {
         _context.Comments.Add(comment);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return comment;
     }
 
-    public Comment Update(Comment comment)
+    public async Task<Comment> Update(Comment comment)
     {
         _context.Comments.Update(comment);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return comment;
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var comment = _context.Comments.Find(id);
+        var comment = await _context.Comments.FindAsync(id);
         if(comment == null)
         {
             throw new KeyNotFoundException("Comment not found");
         }
         _context.Comments.Remove(comment);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }

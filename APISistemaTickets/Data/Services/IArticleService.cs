@@ -4,9 +4,9 @@ namespace APISistemaTickets.Data.Services;
 
 public interface IArticleService
 {
-    IEnumerable<KnowledgeBaseArticle> GetAll();
-    KnowledgeBaseArticle GetById(int id);
-    KnowledgeBaseArticle Create(KnowledgeBaseArticle article);
-    KnowledgeBaseArticle Update(KnowledgeBaseArticle article);
-    KnowledgeBaseArticle Delete(int id);
+    Task<IEnumerable<KnowledgeBaseArticle>> GetAll();
+    Task<KnowledgeBaseArticle> GetById(int id);
+    Task<KnowledgeBaseArticle> Create(KnowledgeBaseArticle article);
+    Task<KnowledgeBaseArticle> Update(KnowledgeBaseArticle article);
+    Task Delete(int id);
 }

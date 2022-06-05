@@ -1,5 +1,6 @@
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace APISistemaTickets.Data.Services;
 
@@ -12,14 +13,14 @@ class ArticleService : IArticleService
         _context = context;
     }
     
-    public IEnumerable<KnowledgeBaseArticle> GetAll()
+    public async Task<IEnumerable<KnowledgeBaseArticle>> GetAll()
     {
-        return _context.KnowledgeBaseArticles;
+        return await _context.KnowledgeBaseArticles.ToListAsync();
     }
 
-    public KnowledgeBaseArticle GetById(int id)
+    public async Task<KnowledgeBaseArticle> GetById(int id)
     {
-        var knowledgeBaseArticle = _context.KnowledgeBaseArticles.Find(id);
+        var knowledgeBaseArticle = await _context.KnowledgeBaseArticles.FindAsync(id);
         if (knowledgeBaseArticle == null)
         {
             throw new KeyNotFoundException("Article not found");
@@ -27,29 +28,28 @@ class ArticleService : IArticleService
         return knowledgeBaseArticle;
     }
 
-    public KnowledgeBaseArticle Create(KnowledgeBaseArticle article)
+    public async Task<KnowledgeBaseArticle> Create(KnowledgeBaseArticle article)
     {
         _context.KnowledgeBaseArticles.Add(article);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return article;
     }
 
-    public KnowledgeBaseArticle Update(KnowledgeBaseArticle article)
+    public async Task<KnowledgeBaseArticle> Update(KnowledgeBaseArticle article)
     {
         _context.KnowledgeBaseArticles.Update(article);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return article;
     }
 
-    public KnowledgeBaseArticle Delete(int id)
+    public async Task Delete(int id)
     {
-        var knowledgeBaseArticle = _context.KnowledgeBaseArticles.Find(id);
+        var knowledgeBaseArticle = await _context.KnowledgeBaseArticles.FindAsync(id);
         if (knowledgeBaseArticle == null)
         {
             throw new KeyNotFoundException("Article not found");
         }
         _context.KnowledgeBaseArticles.Remove(knowledgeBaseArticle);
-        _context.SaveChanges();
-        return knowledgeBaseArticle;
+        await _context.SaveChangesAsync();
     }
 }

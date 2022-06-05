@@ -1,5 +1,6 @@
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace APISistemaTickets.Data.Services;
 
@@ -12,14 +13,14 @@ class TagService : ITagService
         _context = context;
     }
     
-    public IEnumerable<Tag> GetTags()
+    public async Task<IEnumerable<Tag>> GetTags()
     {
-        return _context.Tags;
+        return await _context.Tags.ToListAsync();
     }
 
-    public Tag GetById(int id)
+    public async Task<Tag> GetById(int id)
     {
-        var tag = _context.Tags.Find(id);
+        var tag = await _context.Tags.FindAsync(id);
         if (tag == null)
         {
             throw new KeyNotFoundException("Tag not found");
@@ -27,28 +28,28 @@ class TagService : ITagService
         return tag;
     }
 
-    public Tag Create(Tag tag)
+    public async Task<Tag> Create(Tag tag)
     {
         _context.Tags.Add(tag);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return tag;
     }
 
-    public Tag Update(Tag tag)
+    public async Task<Tag> Update(Tag tag)
     {
         _context.Tags.Update(tag);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return tag;
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var tag = _context.Tags.Find(id);
+        var tag = await _context.Tags.FindAsync(id);
         if (tag == null)
         {
             throw new KeyNotFoundException("Tag not found");
         }
         _context.Tags.Remove(tag);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }
