@@ -1,5 +1,6 @@
 ﻿using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Models.Auth;
+using APISistemaTickets.Data.Models.DTO.App;
 using APISistemaTickets.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +43,23 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
+    [Authorize(Role.Admin, Role.Manager)]
+    [HttpGet("[action]")]
+    public IActionResult GetAllEngineers()
+    {
+        var users = _userService.GetAll().Where(u => u.Role == Role.Engineer);
+        return Ok(users);
+    }
+
+    [Authorize(Role.Admin, Role.Manager)]
+    [HttpPost("SetUserRole/{userId}")]
+    public IActionResult SetUserRole(long userId, RoleDTO role)
+    {
+        _userService.SetUserRole(userId, (Role) role.RoleId);
+        return Ok();
+    }
+    
+    
     [HttpPut("{id}")]
     public IActionResult Update(int id, UpdateRequest model)
     {

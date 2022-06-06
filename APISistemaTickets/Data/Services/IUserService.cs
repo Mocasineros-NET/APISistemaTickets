@@ -11,4 +11,5 @@ public interface IUserService
     void Register(RegisterRequest model);
     void Update(long id, UpdateRequest model);
     void Delete(long id);
+    void SetUserRole(long userId, Role role);
 }

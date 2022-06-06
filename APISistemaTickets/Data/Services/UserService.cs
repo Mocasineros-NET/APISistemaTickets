@@ -92,6 +92,14 @@ public class UserService : IUserService
         _context.SaveChanges();
     }
 
+    public void SetUserRole(long userId, Role role)
+    {
+        var user = GetUser(userId);
+        user.Role = role;
+        _context.Users.Update(user);
+        _context.SaveChanges();
+    }
+
     // helper methods
 
     private User GetUser(long id)
