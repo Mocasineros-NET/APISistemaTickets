@@ -110,6 +110,7 @@ namespace APISistemaTickets.Controllers.App
         {
             var userId = ((User) HttpContext.Items["User"]!).Id;
             var newTicket = _mapper.Map<Ticket>(ticket);
+            newTicket.UserId = userId;
             await _ticketService.Create(newTicket);
             return Created(userId.ToString(), newTicket);
         }
