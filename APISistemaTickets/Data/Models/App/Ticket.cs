@@ -24,7 +24,7 @@ public class Ticket
     
     public DateTime? ClosedAt { get; set; }
     
-    public bool IsClosed => ClosedAt == null;
+    public bool IsClosed => ClosedAt != null;
     
     public virtual ICollection<Tag>? Tags { get; set; }
     
