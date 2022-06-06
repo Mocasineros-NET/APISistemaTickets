@@ -5,9 +5,9 @@ namespace APISistemaTickets.Data.Services;
 
 public interface ITicketService
 {
-    Task<IEnumerable<Ticket>> GetAll(); 
-    Task<Ticket> GetById(long id);
-    Task<IEnumerable<Ticket>> GetByUserId(long id);
+    Task<IEnumerable<Ticket>?> GetAll(); 
+    Task<Ticket?> GetById(long id);
+    Task<IEnumerable<Ticket>?> GetByUserId(long id);
     Task<Ticket> Create(Ticket ticket);
     Task<Ticket> Update(Ticket ticket);
     Task Delete(long id);

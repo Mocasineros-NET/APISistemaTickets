@@ -13,12 +13,12 @@ class ArticleService : IArticleService
         _context = context;
     }
     
-    public async Task<IEnumerable<KnowledgeBaseArticle>> GetAll()
+    public async Task<IEnumerable<KnowledgeBaseArticle>?> GetAll()
     {
         return await _context.KnowledgeBaseArticles.ToListAsync();
     }
 
-    public async Task<KnowledgeBaseArticle> GetById(int id)
+    public async Task<KnowledgeBaseArticle?> GetById(int id)
     {
         var knowledgeBaseArticle = await _context.KnowledgeBaseArticles.FindAsync(id);
         if (knowledgeBaseArticle == null)

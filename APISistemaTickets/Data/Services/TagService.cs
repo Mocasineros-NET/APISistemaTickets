@@ -13,12 +13,12 @@ class TagService : ITagService
         _context = context;
     }
     
-    public async Task<IEnumerable<Tag>> GetTags()
+    public async Task<IEnumerable<Tag>?> GetTags()
     {
         return await _context.Tags.ToListAsync();
     }
 
-    public async Task<Tag> GetById(int id)
+    public async Task<Tag?> GetById(long id)
     {
         var tag = await _context.Tags.FindAsync(id);
         if (tag == null)
@@ -42,7 +42,7 @@ class TagService : ITagService
         return tag;
     }
 
-    public async Task Delete(int id)
+    public async Task Delete(long id)
     {
         var tag = await _context.Tags.FindAsync(id);
         if (tag == null)

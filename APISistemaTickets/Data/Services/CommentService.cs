@@ -13,12 +13,12 @@ class CommentService : ICommentService
         _context = context;
     }
     
-    public async Task<IEnumerable<Comment>> GetAll()
+    public async Task<IEnumerable<Comment>?> GetAll()
     {
         return await _context.Comments.ToListAsync();
     }
 
-    public async Task<Comment> GetById(int id)
+    public async Task<Comment?> GetById(int id)
     {
         var comment = await _context.Comments.FindAsync(id);
         if(comment == null)

@@ -14,12 +14,12 @@ class TicketService : ITicketService
         _context = context;
     }
 
-    public async Task<IEnumerable<Ticket>> GetAll()
+    public async Task<IEnumerable<Ticket>?> GetAll()
     {
         return await _context.Tickets.ToListAsync();
     }
 
-    public async Task<Ticket> GetById(long id)
+    public async Task<Ticket?> GetById(long id)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
@@ -29,7 +29,7 @@ class TicketService : ITicketService
         return ticket;
     }
 
-    public async Task<IEnumerable<Ticket>> GetByUserId(long id)
+    public async Task<IEnumerable<Ticket>?> GetByUserId(long id)
     {
         var tickets = _context.Tickets.Where(t => t.UserId == id);
         if (tickets == null)
