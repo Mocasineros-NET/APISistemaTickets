@@ -1,5 +1,4 @@
 using APISistemaTickets.Data.Models.App;
-using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +31,16 @@ class TicketService : ITicketService
     public async Task<IEnumerable<Ticket>?> GetByUserId(long id)
     {
         var tickets = _context.Tickets.Where(t => t.UserId == id);
+        if (tickets == null)
+        {
+            throw new KeyNotFoundException("Tickets not found");
+        }
+        return await tickets.ToListAsync();
+    }
+
+    public async Task<IEnumerable<Ticket>?> GetByEngineerId(long id)
+    {
+        var tickets = _context.Tickets.Where(t => t.EngineerId == id);
         if (tickets == null)
         {
             throw new KeyNotFoundException("Tickets not found");
@@ -90,14 +99,14 @@ class TicketService : ITicketService
         return ticket;
     }
 
-    public async Task<Ticket> AssignEngineer(long id, User user)
+    public async Task<Ticket> AssignEngineer(long id, long engineerId)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
         {
             throw new KeyNotFoundException("Ticket not found");
         }
-        ticket.EngineerId = user.Id;
+        ticket.EngineerId = engineerId;
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
         return ticket;
@@ -116,7 +125,7 @@ class TicketService : ITicketService
         return ticket;
     }
 
-    public async Task<Ticket> AssignTag(long id, Tag tag)
+    public async Task<Ticket> AssignTag(long id, long tagId)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
@@ -124,20 +133,20 @@ class TicketService : ITicketService
             throw new KeyNotFoundException("Ticket not found");
         }
         ticket.Tags ??= new List<Tag>();
-        ticket.Tags.Add(tag);
+        ticket.Tags.Add((await _context.Tags.FindAsync(tagId))!);
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
         return ticket;
     }
-
-    public async Task<Ticket> UnassignTag(long id, Tag tag)
+    
+    public async Task<Ticket> UnassignTag(long id, long TagId)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
         {
             throw new KeyNotFoundException("Ticket not found");
         }
-        ticket.Tags!.Remove(tag);
+        ticket.Tags!.Remove((await _context.Tags.FindAsync(TagId))!);
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
         return ticket;

@@ -1,54 +1,91 @@
 using APISistemaTickets.Authorization;
-using APISistemaTickets.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
-using APISistemaTickets.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using APISistemaTickets.Data.Models.DTO.App;
+using APISistemaTickets.Data.Services;
+using AutoMapper;
 
 namespace APISistemaTickets.Controllers.App
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly DataContext _context;
-
-        public TicketsController(DataContext context)
+        private readonly ITicketService _ticketService;
+        private readonly IMapper _mapper;
+        
+        public TicketsController(ITicketService ticketService, IMapper mapper)
         {
-            _context = context;
+            _ticketService = ticketService;
+            _mapper = mapper;
         }
-
+        
         // GET: api/Tickets
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-          if (_context.Tickets == null)
-          {
-              return NotFound();
-          }
-            return await _context.Tickets.ToListAsync();
+            var tickets = await _ticketService.GetAll();
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+            return tickets.ToList();
         }
 
         // GET: api/Tickets/5
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(long id)
         {
-          if (_context.Tickets == null)
-          {
-              return NotFound();
-          }
-            var ticket = await _context.Tickets.FindAsync(id);
-
+            var ticket = await _ticketService.GetById(id);
             if (ticket == null)
             {
                 return NotFound();
             }
-
             return ticket;
+        }
+        
+        //GET: api/Tickets/GetByUserId/5
+        [Authorize(Role.Admin, Role.Manager)]
+        [HttpGet("GetByUserId/{id}")]
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetByUserId(long id)
+        {
+            var tickets = await _ticketService.GetByUserId(id);
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+            return tickets.ToList();
+        }
+        
+        //GET: api/Tickets/GetMyTickets
+        [Authorize]
+        [HttpGet("GetMyTickets")]
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetMyTickets()
+        {
+            var userId = ((User) HttpContext.Items["User"]!).Id;
+            var tickets = await _ticketService.GetByUserId(userId);
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+            return tickets.ToList();
+        }
+        
+        //GET: api/Tickets/GetMyAssignedTickets
+        [Authorize(Role.Engineer)]
+        [HttpGet("GetMyAssignedTickets")]
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetMyAssignedTickets()
+        {
+            var userId = ((User) HttpContext.Items["User"]!).Id;
+            var tickets = await _ticketService.GetByEngineerId(userId);
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+            return tickets.ToList();
         }
 
         // PUT: api/Tickets/5
@@ -61,25 +98,7 @@ namespace APISistemaTickets.Controllers.App
             {
                 return BadRequest();
             }
-
-            _context.Entry(ticket).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _ticketService.Update(ticket);
             return NoContent();
         }
 
@@ -87,44 +106,110 @@ namespace APISistemaTickets.Controllers.App
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
+        public async Task<ActionResult<Ticket>> PostTicket(TicketDTO ticket)
         {
-            var user = (User) HttpContext.Items["User"]!;  
-            if (_context.Tickets == null)
-            {
-              return Problem("Entity set 'DataContext.Tickets'  is null.");
-            }
-            ticket.UserId = user.Id;
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
+            var userId = ((User) HttpContext.Items["User"]!).Id;
+            var newTicket = _mapper.Map<Ticket>(ticket);
+            await _ticketService.Create(newTicket);
+            return Created(userId.ToString(), newTicket);
         }
 
         // DELETE: api/Tickets/5
-        [Authorize(Role.Admin)]
         [HttpDelete("{id}")]
+        [Authorize(Role.Admin, Role.Manager)]
         public async Task<IActionResult> DeleteTicket(long id)
         {
-            if (_context.Tickets == null)
+            if (await _ticketService.GetById(id) == null)
             {
                 return NotFound();
             }
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-
-            _context.Tickets.Remove(ticket);
-            await _context.SaveChangesAsync();
-
+            
+            await _ticketService.Delete(id);
             return NoContent();
         }
         
-        private bool TicketExists(long id)
+        //POST: api/Tickets/Close/5
+        [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
+        [HttpPost("Close/{id}")]
+        public async Task<IActionResult> CloseTicket(long id)
         {
-            return (_context.Tickets?.Any(e => e.Id == id)).GetValueOrDefault();
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.Close(id);
+            return NoContent();
+        }
+        
+        //POST: api/Tickets/Open/5
+        [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
+        [HttpPost("Open/{id}")]
+        public async Task<IActionResult> OpenTicket(long id)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.Open(id);
+            return NoContent();
+        }
+        
+        //POST: api/Tickets/Assign/5
+        [Authorize(Role.Admin, Role.Manager)]
+        [HttpPost("Assign/{id}")]
+        public async Task<IActionResult> AssignTicket(long id, long engineerId)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.AssignEngineer(id, engineerId);
+            return NoContent();
+        }
+        
+        //POST: api/Tickets/Unassign/5
+        [Authorize(Role.Admin, Role.Manager)]
+        [HttpPost("Unassign/{id}")]
+        public async Task<IActionResult> UnassignTicket(long id)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.UnassignEngineer(id);
+            return NoContent();
+        }
+        
+        //POST: api/Tickets/AssignTag/5
+        [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
+        [HttpPost("AssignTag/{id}")]
+        public async Task<IActionResult> AssignTag(long id, long tagId)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.AssignTag(id, tagId);
+            return NoContent();
+        }
+        
+        //POST: api/Tickets/UnassignTag/5
+        [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
+        [HttpPost("UnassignTag/{id}")]
+        public async Task<IActionResult> UnassignTag(long id, long tagId)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            
+            await _ticketService.UnassignTag(id, tagId);
+            return NoContent();
         }
     }
 }

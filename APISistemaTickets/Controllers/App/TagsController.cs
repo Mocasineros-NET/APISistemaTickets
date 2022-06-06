@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using APISistemaTickets.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Data.Models.DTO.App;
 using APISistemaTickets.Data.Services;
-using APISistemaTickets.Helpers;
 using AutoMapper;
 using Castle.Core.Internal;
 
@@ -35,12 +29,12 @@ namespace APISistemaTickets.Controllers.App
         public async Task<ActionResult<IEnumerable<Tag>>> GetAllTags()
         {
             var tags = await _tagService.GetTags();
-            if (tags.IsNullOrEmpty())
+            if (tags == null)
             {
                 return NotFound();
             }
 
-            return (await _tagService.GetTags() ?? Array.Empty<Tag>()).ToList();
+            return tags.ToList();
         }
 
         // GET: api/Tags/5
@@ -53,7 +47,7 @@ namespace APISistemaTickets.Controllers.App
             {
                 return NotFound();
             }
-            
+
             var tag = await _tagService.GetById(id);
 
             if (tag == null)
@@ -85,8 +79,10 @@ namespace APISistemaTickets.Controllers.App
                 {
                     return NotFound();
                 }
+
                 throw;
             }
+
             return NoContent();
         }
 

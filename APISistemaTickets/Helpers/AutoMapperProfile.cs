@@ -30,5 +30,8 @@ public class AutoMapperProfile : Profile
             ));
 
         CreateMap<TagDTO, Tag>();
+
+        CreateMap<TicketDTO, Ticket>()
+            .ForMember(t => t.CreatedAt, o => o.MapFrom(_ => DateTime.Now));
     }
 }
