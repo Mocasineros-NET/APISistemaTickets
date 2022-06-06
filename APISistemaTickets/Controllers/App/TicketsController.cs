@@ -92,13 +92,16 @@ namespace APISistemaTickets.Controllers.App
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(long id, Ticket ticket)
+        public async Task<IActionResult> PutTicket(long id, TicketDTO ticket)
         {
-            if (id != ticket.Id)
+            Ticket? oldTicket = await _ticketService.GetById(id);
+            if (oldTicket == null)
             {
                 return BadRequest();
             }
-            await _ticketService.Update(ticket);
+            oldTicket.Title = ticket.Title;
+            oldTicket.Description = ticket.Description;
+            await _ticketService.Update(oldTicket);
             return NoContent();
         }
 

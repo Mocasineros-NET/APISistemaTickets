@@ -62,27 +62,16 @@ namespace APISistemaTickets.Controllers.App
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize(Role.Manager)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTag(long id, Tag tag)
+        public async Task<IActionResult> PutTag(long id, TagDTO tag)
         {
-            if (id != tag.TagId)
+            var oldTag = await _tagService.GetById(id);
+            if (oldTag == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
-            try
-            {
-                await _tagService.Update(tag);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (await _tagService.GetById(id) == null)
-                {
-                    return NotFound();
-                }
-
-                throw;
-            }
-
+            oldTag.Name = tag.Name;
+            oldTag.KnowledgeBaseArticleId = tag.KnowledgeBaseArticleId;
+            await _tagService.Update(oldTag);
             return NoContent();
         }
 
