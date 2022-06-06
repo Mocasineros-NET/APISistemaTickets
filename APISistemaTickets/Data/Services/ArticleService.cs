@@ -18,7 +18,7 @@ class ArticleService : IArticleService
         return await _context.KnowledgeBaseArticles.ToListAsync();
     }
 
-    public async Task<KnowledgeBaseArticle?> GetById(int id)
+    public async Task<KnowledgeBaseArticle?> GetById(long id)
     {
         var knowledgeBaseArticle = await _context.KnowledgeBaseArticles.FindAsync(id);
         if (knowledgeBaseArticle == null)
@@ -42,7 +42,7 @@ class ArticleService : IArticleService
         return article;
     }
 
-    public async Task Delete(int id)
+    public async Task Delete(long id)
     {
         var knowledgeBaseArticle = await _context.KnowledgeBaseArticles.FindAsync(id);
         if (knowledgeBaseArticle == null)

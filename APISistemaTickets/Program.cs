@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Services;
 using APISistemaTickets.Helpers;
@@ -13,7 +14,8 @@ else
     builder.Services.AddDbContext<DataContext, SqliteDataContext>();
 
 builder.Services.AddCors();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);;
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));

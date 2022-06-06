@@ -18,7 +18,7 @@ class CommentService : ICommentService
         return await _context.Comments.ToListAsync();
     }
 
-    public async Task<Comment?> GetById(int id)
+    public async Task<Comment?> GetById(long id)
     {
         var comment = await _context.Comments.FindAsync(id);
         if(comment == null)
@@ -42,7 +42,7 @@ class CommentService : ICommentService
         return comment;
     }
 
-    public async Task Delete(int id)
+    public async Task Delete(long id)
     {
         var comment = await _context.Comments.FindAsync(id);
         if(comment == null)
