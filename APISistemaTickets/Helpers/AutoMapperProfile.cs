@@ -1,4 +1,6 @@
+using APISistemaTickets.Data.Models.App;
 using APISistemaTickets.Data.Models.Auth;
+using APISistemaTickets.Data.Models.DTO.App;
 using AutoMapper;
 
 namespace APISistemaTickets.Helpers;
@@ -26,5 +28,7 @@ public class AutoMapperProfile : Profile
                     return true;
                 }
             ));
+
+        CreateMap<TagDTO, Tag>();
     }
 }
