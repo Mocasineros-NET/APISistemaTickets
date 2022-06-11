@@ -1,8 +1,9 @@
 using APISistemaTickets.Data.Models.App;
+using APISistemaTickets.Data.Services.Interfaces;
 using APISistemaTickets.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace APISistemaTickets.Data.Services;
+namespace APISistemaTickets.Data.Services.Impls;
 
 class TagService : ITagService
 {

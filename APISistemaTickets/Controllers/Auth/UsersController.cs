@@ -2,6 +2,7 @@
 using APISistemaTickets.Data.Models.Auth;
 using APISistemaTickets.Data.Models.DTO.App;
 using APISistemaTickets.Data.Services;
+using APISistemaTickets.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APISistemaTickets.Controllers.Auth;

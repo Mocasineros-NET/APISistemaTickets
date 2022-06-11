@@ -1,9 +1,10 @@
 using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Models.Auth;
+using APISistemaTickets.Data.Services.Interfaces;
 using APISistemaTickets.Helpers;
 using AutoMapper;
 
-namespace APISistemaTickets.Data.Services;
+namespace APISistemaTickets.Data.Services.Impls;
 
 public class UserService : IUserService
 {

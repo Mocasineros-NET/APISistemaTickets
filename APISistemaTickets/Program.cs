@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using APISistemaTickets.Authorization;
 using APISistemaTickets.Data.Services;
+using APISistemaTickets.Data.Services.Impls;
+using APISistemaTickets.Data.Services.Interfaces;
 using APISistemaTickets.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,13 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 if (builder.Environment.IsProduction())
+{
+    Console.WriteLine("Using production database");
     builder.Services.AddDbContext<DataContext>();
+}
 else
+{
+    Console.WriteLine("Using development database");
     builder.Services.AddDbContext<DataContext, SqliteDataContext>();
+}
 
 builder.Services.AddCors();
 builder.Services.AddControllers().AddJsonOptions(x =>
-    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);;
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
@@ -42,11 +50,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 

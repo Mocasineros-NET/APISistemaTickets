@@ -1,6 +1,6 @@
 using APISistemaTickets.Data.Models.App;
 
-namespace APISistemaTickets.Data.Services;
+namespace APISistemaTickets.Data.Services.Interfaces;
 
 public interface IArticleService
 {

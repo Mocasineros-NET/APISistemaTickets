@@ -1,7 +1,6 @@
 using APISistemaTickets.Data.Models.App;
-using APISistemaTickets.Data.Models.Auth;
 
-namespace APISistemaTickets.Data.Services;
+namespace APISistemaTickets.Data.Services.Interfaces;
 
 public interface ITicketService
 {
