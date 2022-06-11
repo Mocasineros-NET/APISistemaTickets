@@ -1,9 +1,16 @@
 using System.Text.Json.Serialization;
-using APISistemaTickets.Authorization;
-using APISistemaTickets.Data.Services;
-using APISistemaTickets.Data.Services.Impls;
-using APISistemaTickets.Data.Services.Interfaces;
-using APISistemaTickets.Helpers;
+using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.Comments.Domain.Abstractions;
+using APISistemaTickets.Modules.Comments.Domain.Services;
+using APISistemaTickets.Modules.Helpers;
+using APISistemaTickets.Modules.KnowledgeBase.Domain.Abstractions;
+using APISistemaTickets.Modules.KnowledgeBase.Domain.Services;
+using APISistemaTickets.Modules.Tags.Domain.Abstractions;
+using APISistemaTickets.Modules.Tags.Domain.Services;
+using APISistemaTickets.Modules.Tickets.Domain.Abstractions;
+using APISistemaTickets.Modules.Tickets.Domain.Services;
+using APISistemaTickets.Modules.UserAdministration.Domain.Abstractions;
+using APISistemaTickets.Modules.UserAdministration.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

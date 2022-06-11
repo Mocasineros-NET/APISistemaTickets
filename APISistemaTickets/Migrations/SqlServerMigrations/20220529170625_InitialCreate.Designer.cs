@@ -2,7 +2,7 @@
 
 #nullable disable
 
-using APISistemaTickets.Helpers;
+using APISistemaTickets.Modules.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
