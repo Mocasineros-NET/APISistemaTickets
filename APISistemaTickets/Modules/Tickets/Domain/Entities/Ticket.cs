@@ -28,6 +28,8 @@ public class Ticket
     
     public bool IsClosed => ClosedAt != null;
     
+    public Priority Priority { get; set; }
+    
     public virtual ICollection<Tag>? Tags { get; set; }
     
     public virtual ICollection<Comment>? Comments { get; set; }

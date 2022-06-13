@@ -9,6 +9,7 @@ public class TicketAdapter : Profile
     public TicketAdapter()
     {
         CreateMap<TicketDTO, Ticket>()
-            .ForMember(t => t.CreatedAt, o => o.MapFrom(_ => DateTime.Now));
+            .ForMember(t => t.CreatedAt, o => o.MapFrom(_ => DateTime.Now))
+            .ForMember(t => t.Priority, o => o.MapFrom(t => Priority.Low));
     }
 }

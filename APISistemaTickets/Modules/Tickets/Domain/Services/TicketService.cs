@@ -153,4 +153,17 @@ class TicketService : ITicketService
         await _context.SaveChangesAsync();
         return ticket;
     }
+    
+    public async Task<Ticket> SetPriority(long id, int priority)
+    {
+        var ticket = await _context.Tickets.FindAsync(id);
+        if (ticket == null)
+        {
+            throw new KeyNotFoundException("Ticket not found");
+        }
+        ticket.Priority = (Priority)priority;
+        _context.Tickets.Update(ticket);
+        await _context.SaveChangesAsync();
+        return ticket;
+    }
 }
