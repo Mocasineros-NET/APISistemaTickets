@@ -1,9 +1,10 @@
 ﻿using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.UserAdministration.Application.DTO;
 using APISistemaTickets.Modules.UserAdministration.Domain.Abstractions;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APISistemaTickets.Modules.UserAdministration.Application;
+namespace APISistemaTickets.Modules.UserAdministration.Application.Controllers;
 
 
 [Authorize]

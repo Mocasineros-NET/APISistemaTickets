@@ -1,11 +1,12 @@
 using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.KnowledgeBase.Application.DTO;
 using APISistemaTickets.Modules.KnowledgeBase.Domain.Abstractions;
 using APISistemaTickets.Modules.KnowledgeBase.Domain.Entities;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APISistemaTickets.Modules.KnowledgeBase.Application
+namespace APISistemaTickets.Modules.KnowledgeBase.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,11 +1,12 @@
 using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.Tickets.Application.DTO;
 using APISistemaTickets.Modules.Tickets.Domain.Abstractions;
 using APISistemaTickets.Modules.Tickets.Domain.Entities;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APISistemaTickets.Modules.Tickets.Application
+namespace APISistemaTickets.Modules.Tickets.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

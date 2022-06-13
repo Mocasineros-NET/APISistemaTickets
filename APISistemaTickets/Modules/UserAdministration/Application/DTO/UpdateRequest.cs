@@ -1,4 +1,4 @@
-namespace APISistemaTickets.Modules.UserAdministration.Domain.Entities;
+namespace APISistemaTickets.Modules.UserAdministration.Application.DTO;
 
 public class UpdateRequest
 {

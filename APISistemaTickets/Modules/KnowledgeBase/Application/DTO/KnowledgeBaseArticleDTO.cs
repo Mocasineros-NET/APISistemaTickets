@@ -1,4 +1,4 @@
-namespace APISistemaTickets.Modules.KnowledgeBase.Domain.Entities;
+namespace APISistemaTickets.Modules.KnowledgeBase.Application.DTO;
 
 public class KnowledgeBaseArticleDTO
 {

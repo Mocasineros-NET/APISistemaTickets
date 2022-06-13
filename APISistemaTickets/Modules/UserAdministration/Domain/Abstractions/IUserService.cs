@@ -1,3 +1,5 @@
+using APISistemaTickets.Modules.UserAdministration.Application;
+using APISistemaTickets.Modules.UserAdministration.Application.DTO;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 
 namespace APISistemaTickets.Modules.UserAdministration.Domain.Abstractions;

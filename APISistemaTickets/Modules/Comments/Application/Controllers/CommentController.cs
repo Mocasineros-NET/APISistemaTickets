@@ -1,11 +1,12 @@
 using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.Comments.Application.DTO;
 using APISistemaTickets.Modules.Comments.Domain.Abstractions;
 using APISistemaTickets.Modules.Comments.Domain.Entities;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APISistemaTickets.Modules.Comments.Application
+namespace APISistemaTickets.Modules.Comments.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

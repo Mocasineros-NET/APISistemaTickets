@@ -1,4 +1,4 @@
-namespace APISistemaTickets.Modules.Comments.Domain.Entities;
+namespace APISistemaTickets.Modules.Comments.Application.DTO;
 
 public class CommentDTO
 {

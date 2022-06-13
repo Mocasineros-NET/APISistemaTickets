@@ -1,15 +1,13 @@
-using APISistemaTickets.Modules.Comments.Domain.Entities;
-using APISistemaTickets.Modules.KnowledgeBase.Domain.Entities;
-using APISistemaTickets.Modules.Tags.Domain.Entities;
-using APISistemaTickets.Modules.Tickets.Domain.Entities;
+using APISistemaTickets.Modules.UserAdministration.Application;
+using APISistemaTickets.Modules.UserAdministration.Application.DTO;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using AutoMapper;
 
-namespace APISistemaTickets.Modules.Helpers;
+namespace APISistemaTickets.Modules.UserAdministration.Domain.Abstractions;
 
-public class AutoMapperProfile : Profile
+public class UserAdapter : Profile
 {
-    public AutoMapperProfile()
+    public UserAdapter()
     {
         // User -> AuthenticateResponse
         CreateMap<User, AuthenticateResponse>();
@@ -30,13 +28,5 @@ public class AutoMapperProfile : Profile
                     return true;
                 }
             ));
-
-        CreateMap<TagDTO, Tag>();
-
-        CreateMap<TicketDTO, Ticket>()
-            .ForMember(t => t.CreatedAt, o => o.MapFrom(_ => DateTime.Now));
-
-        CreateMap<KnowledgeBaseArticleDTO, KnowledgeBaseArticle>();
-        CreateMap<CommentDTO, Comment>();
     }
 }

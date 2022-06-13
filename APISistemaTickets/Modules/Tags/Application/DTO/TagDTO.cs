@@ -1,4 +1,4 @@
-namespace APISistemaTickets.Modules.Tags.Domain.Entities;
+namespace APISistemaTickets.Modules.Tags.Application.DTO;
 
 public class TagDTO
 {

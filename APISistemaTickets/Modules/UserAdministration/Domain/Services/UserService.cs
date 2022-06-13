@@ -1,5 +1,7 @@
 using APISistemaTickets.Modules.Authorization;
 using APISistemaTickets.Modules.Helpers;
+using APISistemaTickets.Modules.UserAdministration.Application;
+using APISistemaTickets.Modules.UserAdministration.Application.DTO;
 using APISistemaTickets.Modules.UserAdministration.Domain.Abstractions;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
 using AutoMapper;

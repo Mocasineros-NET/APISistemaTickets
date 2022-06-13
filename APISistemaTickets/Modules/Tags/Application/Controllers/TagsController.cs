@@ -1,4 +1,5 @@
 using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.Tags.Application.DTO;
 using APISistemaTickets.Modules.Tags.Domain.Abstractions;
 using APISistemaTickets.Modules.Tags.Domain.Entities;
 using APISistemaTickets.Modules.UserAdministration.Domain.Entities;
@@ -6,7 +7,7 @@ using AutoMapper;
 using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APISistemaTickets.Modules.Tags.Application
+namespace APISistemaTickets.Modules.Tags.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
