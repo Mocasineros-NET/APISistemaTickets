@@ -163,7 +163,7 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
         //POST: api/Tickets/Assign/5
         [Authorize(Role.Admin, Role.Manager)]
         [HttpPost("Assign/{id}")]
-        public async Task<IActionResult> AssignTicket(long id, long engineerId)
+        public async Task<IActionResult> AssignTicket(long id, [FromBody] long engineerId)
         {
             if (await _ticketService.GetById(id) == null)
             {
@@ -191,7 +191,7 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
         //POST: api/Tickets/AssignTag/5
         [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
         [HttpPost("AssignTag/{id}")]
-        public async Task<IActionResult> AssignTag(long id, long tagId)
+        public async Task<IActionResult> AssignTag(long id, [FromBody] long tagId)
         {
             if (await _ticketService.GetById(id) == null)
             {
@@ -205,7 +205,7 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
         //POST: api/Tickets/UnassignTag/5
         [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
         [HttpPost("UnassignTag/{id}")]
-        public async Task<IActionResult> UnassignTag(long id, long tagId)
+        public async Task<IActionResult> UnassignTag(long id, [FromBody] long tagId)
         {
             if (await _ticketService.GetById(id) == null)
             {

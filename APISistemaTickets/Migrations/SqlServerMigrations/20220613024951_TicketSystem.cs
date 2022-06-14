@@ -35,7 +35,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,8 +44,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         name: "FK_KnowledgeBaseArticles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -86,7 +85,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                     TagId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KnowledgeBaseArticleId = table.Column<long>(type: "bigint", nullable: false)
+                    KnowledgeBaseArticleId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,8 +94,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         name: "FK_Tags_KnowledgeBaseArticles_KnowledgeBaseArticleId",
                         column: x => x.KnowledgeBaseArticleId,
                         principalTable: "KnowledgeBaseArticles",
-                        principalColumn: "KnowledgeBaseArticleId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "KnowledgeBaseArticleId");
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +104,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                     CommentId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TicketId = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -122,8 +120,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -147,7 +144,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         column: x => x.TicketsId,
                         principalTable: "Tickets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

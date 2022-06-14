@@ -37,7 +37,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                     b.Property<long>("TicketId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("CommentId");
@@ -65,7 +65,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("KnowledgeBaseArticleId");
@@ -83,7 +83,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TagId"), 1L, 1);
 
-                    b.Property<long>("KnowledgeBaseArticleId")
+                    b.Property<long?>("KnowledgeBaseArticleId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
@@ -201,9 +201,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
 
                     b.HasOne("APISistemaTickets.Modules.UserAdministration.Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Ticket");
 
@@ -214,9 +212,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                 {
                     b.HasOne("APISistemaTickets.Modules.UserAdministration.Domain.Entities.User", "Author")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Author");
                 });
@@ -225,9 +221,7 @@ namespace APISistemaTickets.Migrations.SqlServerMigrations
                 {
                     b.HasOne("APISistemaTickets.Modules.KnowledgeBase.Domain.Entities.KnowledgeBaseArticle", "KnowledgeBaseArticle")
                         .WithMany("Tags")
-                        .HasForeignKey("KnowledgeBaseArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KnowledgeBaseArticleId");
 
                     b.Navigation("KnowledgeBaseArticle");
                 });

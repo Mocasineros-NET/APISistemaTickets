@@ -14,7 +14,7 @@ public class KnowledgeBaseArticle
     
     public virtual ICollection<Tag>? Tags { get; set; }
     
-    public long UserId { get; set; }
+    public long? UserId { get; set; }
     
     [ForeignKey("UserId")]
     public virtual User? Author { get; set; }
