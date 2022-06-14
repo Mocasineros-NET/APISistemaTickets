@@ -1,4 +1,5 @@
 using APISistemaTickets.Modules.Authorization;
+using APISistemaTickets.Modules.Tags.Application.DTO;
 using APISistemaTickets.Modules.Tickets.Application.DTO;
 using APISistemaTickets.Modules.Tickets.Domain.Abstractions;
 using APISistemaTickets.Modules.Tickets.Domain.Entities;
@@ -163,14 +164,14 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
         //POST: api/Tickets/Assign/5
         [Authorize(Role.Admin, Role.Manager)]
         [HttpPost("Assign/{id}")]
-        public async Task<IActionResult> AssignTicket(long id, [FromBody] long engineerId)
+        public async Task<IActionResult> AssignTicket(long id, EngineerAssignmentDTO engineer)
         {
             if (await _ticketService.GetById(id) == null)
             {
                 return NotFound();
             }
             
-            await _ticketService.AssignEngineer(id, engineerId);
+            await _ticketService.AssignEngineer(id, engineer.engineerId);
             return NoContent();
         }
         
@@ -191,14 +192,14 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
         //POST: api/Tickets/AssignTag/5
         [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
         [HttpPost("AssignTag/{id}")]
-        public async Task<IActionResult> AssignTag(long id, [FromBody] long tagId)
+        public async Task<IActionResult> AssignTag(long id, TagAssignmentDTO tag)
         {
             if (await _ticketService.GetById(id) == null)
             {
                 return NotFound();
             }
             
-            await _ticketService.AssignTag(id, tagId);
+            await _ticketService.AssignTag(id, tag.tagId);
             return NoContent();
         }
         
