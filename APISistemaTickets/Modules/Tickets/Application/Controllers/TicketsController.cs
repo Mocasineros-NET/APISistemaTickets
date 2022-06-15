@@ -121,7 +121,7 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
 
         // DELETE: api/Tickets/5
         [HttpDelete("{id}")]
-        [Authorize(Role.Admin, Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager, Role.User)]
         public async Task<IActionResult> DeleteTicket(long id)
         {
             if (await _ticketService.GetById(id) == null)
