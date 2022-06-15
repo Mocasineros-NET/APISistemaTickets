@@ -19,3 +19,7 @@ La solución tiene como target .NET 6, por lo tanto, para abrir el proyecto se d
 Para hacer un despliegue de la aplicación se debe publicar la API como AppService en un servidor Linux o Windows y agregar el ConnectionString de SQL Server.
 
 Las migraciones se ejecutan automáticamente.
+
+## Demo
+
+La API tiene su versión demo hosteada en Azure: https://tickets-mocasineros-api.azurewebsites.net/swagger/index.html
