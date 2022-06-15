@@ -141,29 +141,27 @@ class TicketService : ITicketService
         return ticket;
     }
     
-    public async Task<Ticket> UnassignTag(long id, long TagId)
+    public async Task<Ticket> UnassignTag(long id, long tagId)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
         {
             throw new KeyNotFoundException("Ticket not found");
         }
-        ticket.Tags!.Remove((await _context.Tags.FindAsync(TagId))!);
+        ticket.Tags!.Remove((await _context.Tags.FindAsync(tagId))!);
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
         return ticket;
     }
-    
-    public async Task<Ticket> SetPriority(long id, int priority)
+    public async Task SetPriority(long id, Priority priority)
     {
         var ticket = await _context.Tickets.FindAsync(id);
         if (ticket == null)
         {
             throw new KeyNotFoundException("Ticket not found");
         }
-        ticket.Priority = (Priority)priority;
+        ticket.Priority = priority;
         _context.Tickets.Update(ticket);
         await _context.SaveChangesAsync();
-        return ticket;
     }
 }

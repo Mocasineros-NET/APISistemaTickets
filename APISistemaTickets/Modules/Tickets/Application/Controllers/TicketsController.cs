@@ -216,5 +216,18 @@ namespace APISistemaTickets.Modules.Tickets.Application.Controllers
             await _ticketService.UnassignTag(id, tagId);
             return NoContent();
         }
+
+        [Authorize(Role.Admin, Role.Manager, Role.Engineer)]
+        [HttpPost("SetPriority/{id}")]
+        public async Task<IActionResult> SetPriority(long id, PriorityDTO priority)
+        {
+            if (await _ticketService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+
+            await _ticketService.SetPriority(id, priority.Priority);
+            return NoContent();
+        }
     }
 }

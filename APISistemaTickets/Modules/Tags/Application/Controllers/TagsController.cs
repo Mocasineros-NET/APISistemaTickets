@@ -23,7 +23,7 @@ namespace APISistemaTickets.Modules.Tags.Application.Controllers
         }
 
         // GET: api/Tags/getAllTags
-        [Authorize(Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpGet("getAllTags")]
         public async Task<ActionResult<IEnumerable<Tag>>> GetAllTags()
         {
@@ -37,7 +37,7 @@ namespace APISistemaTickets.Modules.Tags.Application.Controllers
         }
 
         // GET: api/Tags/5
-        [Authorize(Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Tag>> GetTag(long id)
         {
@@ -59,7 +59,7 @@ namespace APISistemaTickets.Modules.Tags.Application.Controllers
 
         // PUT: api/Tags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTag(long id, TagDTO tag)
         {
@@ -76,7 +76,7 @@ namespace APISistemaTickets.Modules.Tags.Application.Controllers
 
         // POST: api/Tags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpPost]
         public async Task<ActionResult<Tag>> PostTag(TagDTO tag)
         {
@@ -86,7 +86,7 @@ namespace APISistemaTickets.Modules.Tags.Application.Controllers
         }
 
         // DELETE: api/Tags/5
-        [Authorize(Role.Manager)]
+        [Authorize(Role.Admin, Role.Manager)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTag(long id)
         {

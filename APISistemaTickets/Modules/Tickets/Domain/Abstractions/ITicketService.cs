@@ -17,4 +17,5 @@ public interface ITicketService
     Task<Ticket> UnassignEngineer(long id);
     Task<Ticket> AssignTag(long id, long tagId);
     Task<Ticket> UnassignTag(long id, long tagId);
+    Task SetPriority(long id, Priority priorityPriority);
 }
